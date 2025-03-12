@@ -52,7 +52,7 @@ serve(async (req: Request) => {
       const { data, error } = await supabase
         .from("workouts")
         .select("*")
-        .eq("user_id", userId)
+        .eq("user_id", userId) // eq is a filter for equality
         .order("date", { ascending: false });
 
       if (error) throw error;
@@ -95,7 +95,7 @@ serve(async (req: Request) => {
         .from("workouts")
         .select("user_id")
         .eq("id", id)
-        .single();
+        .single(); //  single() returns a single row
 
       if (fetchError) throw fetchError;
 
@@ -120,9 +120,13 @@ serve(async (req: Request) => {
     }
 
     if (req.method === "DELETE") {
+      // Parse the request URL into a URL object
       const url = new URL(req.url);
+      // Split the path into segments using "/" as separator
       const pathParts = url.pathname.split("/");
+      // Extract the workout ID from the last segment of the URL path
       const id = pathParts[pathParts.length - 1];
+      // Get the user ID from query parameters for authorisation check
       const userId = url.searchParams.get("user_id");
 
       if (!userId) {
