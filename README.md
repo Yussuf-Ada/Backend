@@ -1,59 +1,60 @@
 # APA1 Supa Task Backend
 
-This is where you'll design and deploy your API for access by your frontend
+## Project Overview
 
-## Prerequisites
+This backend is the API service that powers the Workout Logger application. It handles data management and server-side processing for tracking and managing fitness activities. Built with Supabase Edge Functions, it provides a scalable solution for fitness tracking needs.
 
-- [Node.js](https://nodejs.org/) (v16 or newer)
-- [Supabase CLI](https://supabase.com/docs/guides/cli)
-- [curl](https://curl.se/) for testing functions locally
+## Setup Instructions
 
-## Getting Started
+1. Clone the repository to your local machine
 
-Before starting with this project please set up an account with [Supabase](https://supabase.com/)
+2. Install dependencies:
+   npm install
 
-### 1. Clone the Repository
+3. Authenticate with Supabase:
+   npx supabase login
 
-```bash
-git clone <repository-url>
-cd <repository-name>
-```
+4. Link your local project to your Supabase project:
+   npx supabase link --project-ref your_project_id
 
-### 2. Install Dependencies
+5. Set up environment variables as needed for your deployment
 
-`npm install`
+## Features
 
-**Very important, if you are working on your project in cloud spaces prefix all your supabase commands with `npx`**
+- **Exercise Management**: Create, read, update, and delete exercises
+- **Workout Tracking**: Store workout sessions with detailed exercise data
+- **Progress Analytics**: API endpoints for retrieving workout data
+- **Serverless Architecture**: Utilises Supabase Edge Functions for scalable performance
 
-### 3. Authenticate with Supabase
-The first step is to authenticate with Supabase:
+## Technology Stack
 
-```bash
-supabase login
-```
+- Node.js for the serverless function runtime
+- Supabase for database and authentication
+- Supabase Edge Functions for API endpoints
+- TypeScript for type-safe code development
 
-This will open a browser window where you can authenticate with Supabase and generate an access token.
+## Edge Functions Development
 
-### 4. Link
+### Creating a New Function
 
-Once authenticated, link your local project to your Supabase project:
+Create a new Edge Function with:
+npx supabase functions new my-function-name
 
-```bash
-supabase link --project-ref your_project_id
-```
+This will create a new function in the supabase/functions/my-function-name/ directory.
 
-### 5. Working with Edge Functions
+### Testing Functions Locally
 
-**Creating a New Edge Function**
+Test your functions locally before deployment:
+npx supabase functions serve
 
-```bash
-supabase functions new my-function-name
-```
+You can then use curl to test your function:
+curl http://localhost:54321/functions/v1/my-function-name
 
-This creates a new function in supabase/functions/my-function-name/
+### Deploying Functions
 
-**Deploying your Edge functions**
+Deploy your functions to production:
+npx supabase functions deploy
 
-```bash
-supabase functions deploy
-```
+## Integration with Frontend
+
+The backend API is designed to integrate with the Workout Logger frontend application. Endpoints are structured to provide all necessary data operations for the user interface to function effectively.
