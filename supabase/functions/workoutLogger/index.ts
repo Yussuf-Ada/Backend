@@ -100,7 +100,8 @@ serve(async (req: Request) => {
 
       if (fetchError) throw fetchError;
 
-      if (data.user_id !== user_id) {
+      // Convert both values to strings before comparing
+      if (String(data.user_id) !== String(user_id)) {
         return new Response(
           JSON.stringify({ error: "Not authorized to update this workout" }),
           { status: 403, headers: corsHeaders }
@@ -140,7 +141,7 @@ serve(async (req: Request) => {
 
       if (fetchError) throw fetchError;
 
-      if (data.user_id !== userId) {
+      if (String(data.user_id) !== String(userId)) {
         return new Response(
           JSON.stringify({ error: "Not authorized to delete this workout" }),
           { status: 403, headers: corsHeaders }
