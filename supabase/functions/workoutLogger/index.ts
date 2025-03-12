@@ -60,8 +60,7 @@ serve(async (req: Request) => {
     }
 
     if (req.method === "POST") {
-      const { exercise, sets, reps, weight, category, user_id, notes } =
-        await req.json();
+      const { exercise, sets, reps, weight, user_id, notes } = await req.json();
 
       if (!user_id) {
         return new Response(JSON.stringify({ error: "user_id is required" }), {
@@ -72,7 +71,7 @@ serve(async (req: Request) => {
 
       const { error } = await supabase
         .from("workouts")
-        .insert([{ exercise, sets, reps, weight, category, user_id, notes }]);
+        .insert([{ exercise, sets, reps, weight, user_id, notes }]);
 
       if (error) throw error;
       return new Response(
@@ -82,7 +81,7 @@ serve(async (req: Request) => {
     }
 
     if (req.method === "PUT") {
-      const { id, exercise, sets, reps, weight, category, user_id, notes } =
+      const { id, exercise, sets, reps, weight, user_id, notes } =
         await req.json();
 
       if (!user_id) {
@@ -110,7 +109,7 @@ serve(async (req: Request) => {
 
       const { error } = await supabase
         .from("workouts")
-        .update({ exercise, sets, reps, weight, category, notes })
+        .update({ exercise, sets, reps, weight, notes })
         .eq("id", id);
 
       if (error) throw error;
